@@ -32,4 +32,18 @@ let enquirysingleRow=async (req, res) => {
     res.send({status:1, enquiry})
 }
 
-module.exports={enquiryInsert, enquiryList, enquiryDelete, enquirysingleRow}
+let enquiryUpdate=async(req, res) => {
+    let enquiryId=req.params.id;
+    let {name, email, phone, message}=req.body
+    let updateObj={
+        name, 
+        email, 
+        phone, 
+        message
+    };
+    let updateRes=await enquiryModel.updateOne({_id:enquiryId},updateObj)
+    res.send({status:1, message:"Enquiry update successfully", updateRes})
+
+}
+
+module.exports={enquiryInsert, enquiryList, enquiryDelete, enquirysingleRow, enquiryUpdate}
